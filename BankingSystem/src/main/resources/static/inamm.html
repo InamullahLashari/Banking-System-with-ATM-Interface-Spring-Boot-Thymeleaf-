@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iconic Bank - Secure User Portal</title>
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <style>
+    :root {
+      --primary-dark: #0d1b2a;
+      --primary-medium: #1b263b;
+      --primary-light: #415a77;
+      --accent: #007bff;
+      --accent-hover: #0069d9;
+      --text-light: #f8f9fa;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium), var(--primary-light));
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-light);
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Animated background elements */
+    .bg-bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.1;
+    }
+    
+    .bg-bubbles li {
+      position: absolute;
+      list-style: none;
+      display: block;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.15);
+      bottom: -160px;
+      border-radius: 50%;
+      animation: square 25s infinite;
+      transition-timing-function: linear;
+    }
+    
+    @keyframes square {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Positioning for bubbles */
+    .bg-bubbles li:nth-child(1) {
+      left: 10%;
+      animation-delay: 0s;
+      width: 80px;
+      height: 80px;
+    }
+    
+    .bg-bubbles li:nth-child(2) {
+      left: 20%;
+      animation-delay: 2s;
+      animation-duration: 17s;
+    }
+    
+    .bg-bubbles li:nth-child(3) {
+      left: 25%;
+      animation-delay: 4s;
+    }
+    
+    .bg-bubbles li:nth-child(4) {
+      left: 40%;
+      animation-delay: 0s;
+      animation-duration: 22s;
+      width: 60px;
+      height: 60px;
+    }
+    
+    .bg-bubbles li:nth-child(5) {
+      left: 70%;
+      animation-delay: 3s;
+    }
+    
+    .bg-bubbles li:nth-child(6) {
+      left: 80%;
+      animation-delay: 2s;
+      width: 90px;
+      height: 90px;
+    }
+    
+    .bg-bubbles li:nth-child(7) {
+      left: 32%;
+      animation-delay: 6s;
+      width: 70px;
+      height: 70px;
+    }
+    
+    .bg-bubbles li:nth-child(8) {
+      left: 55%;
+      animation-delay: 8s;
+      animation-duration: 18s;
+    }
+    
+    .bg-bubbles li:nth-child(9) {
+      left: 25%;
+      animation-delay: 9s;
+      animation-duration: 20s;
+    }
+    
+    .bg-bubbles li:nth-child(10) {
+      left: 90%;
+      animation-delay: 11s;
+      width: 50px;
+      height: 50px;
+    }
+    
+    .bank-container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8);
+      width: 100%;
+      max-width: 500px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .bank-logo {
+      width: 90px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    }
+    
+    .bank-container h2 {
+      margin-bottom: 25px;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 1px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .bank-container h5 {
+      margin-bottom: 30px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .operation-btn {
+      width: 100%;
+      margin: 12px 0;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-align: left;
+      position: relative;
+      padding-left: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .operation-btn:hover {
+      background-color: var(--accent);
+      color: white !important;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+      border-color: transparent;
+    }
+    
+    .operation-btn i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+    }
+    
+    .security-notice {
+      margin-top: 25px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      border-left: 3px solid var(--accent);
+    }
+    
+    .security-notice i {
+      margin-right: 5px;
+      color: #28a745;
+    }
+    
+    .copyright {
+      margin-top: 20px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated background elements -->
+  <ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  
+  <div class="bank-container">
+    <img src="/images/eagle.png" alt="Iconic Bank Logo" class="bank-logo">
+    <h2>ICONIC BANK</h2>
+    <h5>Secure Access Portal</h5>
+
+    <!-- Operations -->
+    <a href="/bank" class="btn btn-outline-light operation-btn">
+      <i class="fas fa-building"></i>Bank Operations
+    </a>
+    
+    <a href="/userside" class="btn btn-outline-light operation-btn">
+      <i class="fas fa-user"></i>User Operations
+    </a>
+    
+    <a href="/atm" class="btn btn-outline-light operation-btn">
+      <i class="fas fa-money-bill-wave"></i>ATM Operations
+    </a>
+    
+    <div class="security-notice">
+      <p><i class="fas fa-shield-alt"></i> Your security is our priority. This system is protected by advanced encryption and monitoring.</p>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2023 Iconic Bank. All rights reserved.</p>
+    </div>
+  </div>
+
+  <!-- Bootstrap & jQuery JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

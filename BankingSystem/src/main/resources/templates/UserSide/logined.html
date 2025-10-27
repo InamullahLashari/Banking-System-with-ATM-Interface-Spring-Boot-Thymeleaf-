@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - ICONIC BANK</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #0d1b2a;
+            --primary-medium: #1b263b;
+            --primary-light: #415a77;
+            --accent: #007bff;
+            --accent-hover: #0069d9;
+            --success: #28a745;
+            --text-light: #f8f9fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium), var(--primary-light));
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            padding: 15px;
+            margin: 0;
+        }
+        
+        .dashboard-container {
+            min-height: 100vh;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .bank-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px 0;
+        }
+        
+        .bank-logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(145deg, var(--accent), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .bank-logo i {
+            font-size: 30px;
+            color: white;
+        }
+        
+        .icon-title {
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+        }
+        
+        .welcome-card {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .welcome-header {
+            background: linear-gradient(135deg, var(--primary-medium), var(--primary-light));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .welcome-body {
+            padding: 20px;
+        }
+        
+        .user-info {
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-label i {
+            margin-right: 8px;
+            color: var(--accent);
+            width: 16px;
+            font-size: 14px;
+        }
+        
+        .info-value {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .balance-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-light);
+            min-height: 80px;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            color: var(--text-light);
+            text-decoration: none;
+            border-color: var(--accent);
+        }
+        
+        .action-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+        
+        .action-text {
+            font-weight: 600;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .logout-btn {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto 0;
+            text-decoration: none;
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.4);
+            background: linear-gradient(135deg, #c82333, #a71e2a);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logout-btn i {
+            margin-right: 8px;
+        }
+        
+        .security-notice {
+            background: rgba(0, 123, 255, 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+        }
+        
+        .security-notice i {
+            color: var(--accent);
+            margin-right: 5px;
+        }
+        
+        .system-status {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .status-active {
+            background-color: var(--success);
+        }
+        
+        @media (max-width: 400px) {
+            body {
+                padding: 10px;
+            }
+            
+            .dashboard-container {
+                max-width: 100%;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-body {
+                padding: 15px;
+            }
+            
+            .info-item {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- System Status -->
+        <div class="system-status">
+            <div class="status-item">
+                <span class="status-indicator status-active"></span>
+                Online
+            </div>
+            <div class="status-item">
+                <span class="status-indicator status-active"></span>
+                Secure
+            </div>
+            <div class="status-item">
+                <i class="fas fa-user-shield me-1"></i>
+                <span th:text="${name}">User</span>
+            </div>
+        </div>
+        
+        <div class="bank-header">
+            <div class="bank-logo">
+                <i class="fas fa-university"></i>
+            </div>
+            <h2 class="icon-title">ICONIC BANK</h2>
+            <p class="subtitle">Personal Banking</p>
+        </div>
+
+        <div class="welcome-card">
+            <div class="welcome-header">
+                <h4 style="margin: 0; font-size: 1.2rem;"><i class="fas fa-user-circle me-2"></i>Account Dashboard</h4>
+            </div>
+            
+            <div class="welcome-body">
+                <div class="user-info">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-user"></i> Account Holder
+                        </span>
+                        <span class="info-value" th:text="${name}">John Doe</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-university"></i> Account Number
+                        </span>
+                        <span class="info-value" th:text="${account}">****1234</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-wallet"></i> Available Balance
+                        </span>
+                        <span class="info-value balance-value" th:text="${balance}">$12,450.00</span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="#" class="action-btn">
+                        <div class="action-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="action-text">Transfer</div>
+                    </a>
+                    
+                    <a href="#" class="action-btn">
+                        <div class="action-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="action-text">History</div>
+                    </a>
+                    
+                    <a href="#" class="action-btn">
+                        <div class="action-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="action-text">Cards</div>
+                    </a>
+                    
+                    <a href="#" class="action-btn">
+                        <div class="action-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="action-text">Settings</div>
+                    </a>
+                </div>
+                
+                <div class="security-notice">
+                    <p><i class="fas fa-shield-alt"></i> Secured with bank-level encryption</p>
+                </div>
+            </div>
+        </div>
+        
+        <a th:href="@{/logout}" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Secure Logout
+        </a>
+    </div>
+
+    <script>
+        // Add hover effects to action buttons
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Add subtle animation to balance
+        const balanceElement = document.querySelector('.balance-value');
+        if (balanceElement) {
+            balanceElement.style.opacity = '0';
+            setTimeout(() => {
+                balanceElement.style.transition = 'opacity 0.5s ease';
+                balanceElement.style.opacity = '1';
+            }, 200);
+        }
+    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

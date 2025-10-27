@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Operations Portal - Iconic Bank</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #0d1b2a;
+            --primary-medium: #1b263b;
+            --primary-light: #415a77;
+            --accent: #007bff;
+            --accent-hover: #0069d9;
+            --success: #28a745;
+            --danger: #dc3545;
+            --text-light: #f8f9fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium), var(--primary-light));
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bank-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .bank-logo {
+            width: 80px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+        
+        .operations-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .operation-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .operation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .operation-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .operation-title i {
+            margin-right: 10px;
+            font-size: 20px;
+            color: var(--accent);
+        }
+        
+        .operation-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+        
+        .operation-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        
+        .operation-btn:hover {
+            background-color: var(--accent);
+            transform: scale(1.02);
+        }
+        
+        .security-notice {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            border-left: 3px solid var(--success);
+        }
+        
+        .security-notice i {
+            margin-right: 5px;
+            color: var(--success);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-active {
+            background-color: var(--success);
+        }
+        
+        .status-inactive {
+            background-color: var(--danger);
+        }
+        
+        .system-status {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .home-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            color: var(--text-light);
+        }
+        
+        .home-btn i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bank-header">
+        <img src="/images/eagle.png" alt="Iconic Bank Logo" class="bank-logo">
+        <h2>ICONIC BANK</h2>
+        <p>ATM Operations Portal</p>
+    </div>
+    
+    <div class="operations-container">
+        <div class="system-status">
+            <div class="status-item">
+                <span class="status-indicator status-active"></span>
+                System: Online
+            </div>
+            <div class="status-item">
+                <span class="status-indicator status-active"></span>
+                Security: Active
+            </div>
+        </div>
+        
+        <div class="operation-card">
+            <div class="operation-title">
+                <i class="fas fa-money-bill-wave"></i>
+                Deposit Cash with Receipt
+            </div>
+            <div class="operation-desc">
+                Securely deposit cash and receive a printed receipt for your transaction. Funds are available immediately.
+            </div>
+            <a href="/Deposite" class="operation-btn">Proceed to Deposit</a>
+        </div>
+        
+        <div class="operation-card">
+            <div class="operation-title">
+                <i class="fas fa-plus-circle"></i>
+                Create New Account
+            </div>
+            <div class="operation-desc">
+                Open a new savings or checking account with competitive interest rates and premium benefits.
+            </div>
+            <a href="/createAcc" class="operation-btn">Open New Account</a>
+        </div>
+        
+        <div class="operation-card">
+            <div class="operation-title">
+                <i class="fas fa-university"></i>
+                Withdraw Cash by Check
+            </div>
+            <div class="operation-desc">
+                Withdraw funds using a personal check. Verification required for first-time transactions.
+            </div>
+            <a href="/chcek" class="operation-btn">Withdraw with Check</a>
+        </div>
+        
+        <div class="security-notice">
+            <p><i class="fas fa-shield-alt"></i> Your transactions are protected by 256-bit encryption and monitored 24/7 for suspicious activity.</p>
+        </div>
+    </div>
+    
+    <!-- Back to Home Button -->
+    <a href="/home" class="home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+    
+    <div class="copyright">
+        <p>&copy; 2023 Iconic Bank. All rights reserved. | <a href="#" style="color: rgba(255, 255, 255, 0.5);">Privacy Policy</a> | <a href="#" style="color: rgba(255, 255, 255, 0.5);">Terms of Service</a></p>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

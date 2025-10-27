@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Access - ICONIC BANK</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #0d1b2a;
+            --primary-medium: #1b263b;
+            --primary-light: #415a77;
+            --accent: #007bff;
+            --accent-hover: #0069d9;
+            --success: #28a745;
+            --text-light: #f8f9fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium), var(--primary-light));
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bank-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .bank-logo {
+            width: 90px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+        
+        .atm-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .atm-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-label i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+            color: var(--text-light);
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        
+        .home-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+        }
+        
+        .home-btn i {
+            margin-right: 8px;
+        }
+        
+        .security-notice {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            border-left: 3px solid var(--success);
+        }
+        
+        .input-hint {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .atm-graphic {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bank-header">
+        <img src="/images/eagle.png" alt="Iconic Bank Logo" class="bank-logo">
+        <h2>ICONIC BANK</h2>
+    </div>
+
+    <div class="atm-container">
+        <div class="atm-graphic">
+            <i class="fas fa-atm"></i>
+        </div>
+        
+        <h2 class="atm-title">Insert your ATM Card Number</h2>
+        <p class="text-center" style="color: rgba(255, 255, 255, 0.7); margin-bottom: 25px;">
+            Please Insert your ATM card to continue
+        </p>
+
+		<form th:action="@{/pinentry}" th:object="${user}" method="post">
+
+		    <div class="form-group mb-3">
+		        <label for="accountNum" class="form-label">
+		            <i class="fas fa-university"></i>  ATM Access Portal
+		        </label>
+				<input type="text" class="form-control"
+				       th:field="*{accountNumber}"
+				       id="accountNum"
+				       placeholder="Enter your account number"
+				       required
+				       pattern="[0-9]+"
+				       title="Please enter numbers only"
+				       maxlength="16" />
+
+		        <div class="form-text">Enter your account number without spaces or dashes.</div>
+		    </div>
+
+		    <button type="submit" class="btn btn-primary">
+		        <i class="fas fa-arrow-right"></i> Continue
+		    </button>
+
+		</form>
+
+        
+        <div class="security-notice">
+            <p><i class="fas fa-shield-alt"></i> Your security is our priority. All transactions are encrypted.</p>
+        </div>
+    </div>
+    
+    <a th:href="@{/home}" class="home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <script>
+        // Format account number input
+        document.getElementById('accountNum').addEventListener('input', function(e) {
+            // Remove any non-digit characters
+            this.value = this.value.replace(/\D/g, '');
+            
+            // Limit to 16 characters
+            if (this.value.length > 16) {
+                this.value = this.value.slice(0, 16);
+            }
+        });
+    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

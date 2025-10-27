@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate ATM Card - ICONIC BANK</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #0d1b2a;
+            --primary-medium: #1b263b;
+            --primary-light: #415a77;
+            --accent: #007bff;
+            --accent-hover: #0069d9;
+            --success: #28a745;
+            --warning: #ffc107;
+            --text-light: #f8f9fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium), var(--primary-light));
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .header-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-container img {
+            width: 90px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+        
+        .icon-title {
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .form-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-label i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+            color: var(--text-light);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        }
+        
+        .home-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            color: var(--text-light);
+        }
+        
+        .home-btn i {
+            margin-right: 8px;
+        }
+        
+        .security-notice {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            border-left: 3px solid var(--success);
+        }
+        
+        .security-notice i {
+            margin-right: 5px;
+            color: var(--success);
+        }
+        
+        .input-hint {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+        }
+        
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .pin-rules {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        
+        .pin-rules ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+        
+        .pin-rules li {
+            margin-bottom: 5px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        @media (max-width: 576px) {
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Error Message -->
+    <div th:if="${errorMessage}" class="alert alert-danger text-center">
+        <h5 th:text="${errorMessage}"></h5>
+    </div>
+
+    <div class="header-container">
+        <img src="/images/eagle.png" alt="Iconic Bank Logo">
+        <h2 class="icon-title">ICONIC BANK</h2>
+        <p class="subtitle">Secure ATM Card Activation</p>
+    </div>
+
+    <div class="form-container">
+        <h2 class="form-title">Activate Your ATM Card</h2>
+        <p class="text-center" style="color: rgba(255, 255, 255, 0.7); margin-bottom: 25px;">
+            Please provide your account details and set your PIN
+        </p>
+
+        <!-- Activation Form -->
+        <form th:action="@{/savePin}" th:object="${user}" method="post">
+            
+            <!-- Account Number Field -->
+            <div class="form-group">
+                <label for="accountNumber" class="form-label">
+                    <i class="fas fa-university"></i> Account Number
+                </label>
+                <input type="text" 
+                       class="form-control" 
+                       id="accountNumber" 
+                       th:field="*{accountNumber}" 
+                       placeholder="Enter your account number"
+                       required />
+                <div class="input-hint">Your 10-digit account number</div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email" class="form-label">
+                    <i class="fas fa-envelope"></i> Email Address
+                </label>
+                <input type="email" 
+                       class="form-control" 
+                       id="email" 
+                       th:field="*{email}" 
+                       placeholder="Enter your email address"
+                       required />
+                <div class="input-hint">We'll send activation confirmation to this email</div>
+            </div>
+
+            <!-- PIN Field -->
+            <div class="form-group">
+                <label for="pincode" class="form-label">
+                    <i class="fas fa-key"></i> Set Your PIN
+                </label>
+                <input type="password" 
+                       class="form-control" 
+                       id="pincode" 
+                       th:field="*{pincode}" 
+                       placeholder="Enter your 4-digit PIN"
+                       maxlength="4"
+                       required />
+                
+                <div class="pin-rules">
+                    <strong>PIN Requirements:</strong>
+                    <ul>
+                        <li>Must be exactly 4 digits</li>
+                        <li>Do not use sequential numbers (e.g., 1234)</li>
+                        <li>Do not use repeating numbers (e.g., 1111)</li>
+                        <li>Choose a PIN that's easy for you to remember but hard for others to guess</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Confirm PIN Field -->
+            <div class="form-group">
+                <label for="confirmPincode" class="form-label">
+                    <i class="fas fa-key"></i> Confirm Your PIN
+                </label>
+                <input type="password" 
+                       class="form-control" 
+                       id="confirmPincode" 
+                       placeholder="Re-enter your 4-digit PIN"
+                       maxlength="4"
+                       required />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check-circle"></i> Activate Card
+            </button>
+        </form>
+        
+        <div class="security-notice">
+            <p><i class="fas fa-shield-alt"></i> Your card security is our priority. All activations are encrypted and monitored.</p>
+        </div>
+    </div>
+    
+    <a th:href="@{/home}" class="home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <script>
+        // Format account number input
+        document.getElementById('accountNumber')?.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 10);
+        });
+        
+        // Format PIN input (numbers only, max 4 digits)
+        document.getElementById('pincode')?.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 4);
+        });
+        
+        // Format Confirm PIN input (numbers only, max 4 digits)
+        document.getElementById('confirmPincode')?.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 4);
+        });
+        
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const pin = document.getElementById('pincode').value;
+            const confirmPin = document.getElementById('confirmPincode').value;
+            
+            // Check if PINs match
+            if (pin !== confirmPin) {
+                e.preventDefault();
+                alert('PINs do not match. Please enter the same PIN in both fields.');
+                document.getElementById('pincode').focus();
+                return false;
+            }
+            
+            // Check if PIN is exactly 4 digits
+            if (pin.length !== 4) {
+                e.preventDefault();
+                alert('PIN must be exactly 4 digits.');
+                document.getElementById('pincode').focus();
+                return false;
+            }
+            
+            // Check for sequential numbers
+            if (isSequential(pin)) {
+                e.preventDefault();
+                alert('For security reasons, please do not use sequential numbers (e.g., 1234).');
+                document.getElementById('pincode').focus();
+                return false;
+            }
+            
+            // Check for repeating numbers
+            if (isRepeating(pin)) {
+                e.preventDefault();
+                alert('For security reasons, please do not use repeating numbers (e.g., 1111).');
+                document.getElementById('pincode').focus();
+                return false;
+            }
+        });
+        
+        // Check if PIN is sequential
+        function isSequential(pin) {
+            const sequentialPatterns = [
+                '0123', '1234', '2345', '3456', '4567', '5678', '6789', '7890',
+                '0987', '9876', '8765', '7654', '6543', '5432', '4321', '3210'
+            ];
+            return sequentialPatterns.includes(pin);
+        }
+        
+        // Check if PIN is repeating
+        function isRepeating(pin) {
+            return /^(\d)\1{3}$/.test(pin);
+        }
+        
+        // Auto-hide error message after 5 seconds
+        setTimeout(() => {
+            const errorMessage = document.querySelector('.alert');
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+        }, 5000);
+    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
